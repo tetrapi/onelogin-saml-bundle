@@ -37,12 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TatrapiSa\\OneloginSamlBundle\\": "src/"
+            "Nbgrp\\OneloginSamlBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TatrapiSa\\Tests\\OneloginSamlBundle\\": "tests/"
+            "Nbgrp\\Tests\\OneloginSamlBundle\\": "tests/"
         }
     },
     "config": {
