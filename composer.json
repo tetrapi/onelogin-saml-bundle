@@ -1,5 +1,5 @@
 {
-    "name": "nbgrp/onelogin-saml-bundle",
+    "name": "tatrapi-sa/onelogin-saml-bundle",
     "description": "OneLogin SAML Symfony Bundle",
     "license": "BSD-3-Clause",
     "type": "symfony-bundle",
@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "onelogin/php-saml": "^4",
+        "onelogin/php-saml": "4.2.0",
         "psr/log": "^1 || ^2 || ^3",
         "symfony/config": "^7",
         "symfony/dependency-injection": "^7",
@@ -37,12 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Nbgrp\\OneloginSamlBundle\\": "src/"
+            "TatrapiSa\\OneloginSamlBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nbgrp\\Tests\\OneloginSamlBundle\\": "tests/"
+            "TatrapiSa\\Tests\\OneloginSamlBundle\\": "tests/"
         }
     },
     "config": {
