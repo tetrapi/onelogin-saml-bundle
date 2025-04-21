@@ -1,5 +1,5 @@
 {
-    "name": "tatrapi-sa/php-saml-cc-openroaming",
+    "name": "tatrapi-sa/onelogin-saml-bundle",
     "description": "OneLogin SAML Symfony Bundle",
     "license": "BSD-3-Clause",
     "type": "symfony-bundle",
