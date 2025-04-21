@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "onelogin/php-saml": "4.x-dev",
+        "onelogin/php-saml": "dev-deprecation_implicity_nullable",
         "psr/log": "^1 || ^2 || ^3",
         "symfony/config": "^7",
         "symfony/dependency-injection": "^7",
@@ -45,6 +45,12 @@
             "Nbgrp\\Tests\\OneloginSamlBundle\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/onelogin/php-saml"
+        }
+    ],
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true
