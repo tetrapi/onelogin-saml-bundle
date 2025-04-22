@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -20,7 +21,8 @@ readonly class Login
 {
     public function __construct(
         private FirewallMap $firewallMap,
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request, Auth $auth): RedirectResponse
     {
@@ -56,7 +58,7 @@ readonly class Login
         }
 
         /** @phpstan-ignore-next-line */
-        return $session->get('_security.'.$firewallName.'.target_path');
+        return $session->get('_security.' . $firewallName . '.target_path');
     }
 
     private function processLoginAndGetRedirectUrl(Auth $auth, ?string $targetPath, ?SessionInterface $session): string
@@ -64,7 +66,10 @@ readonly class Login
         $redirectUrl = $auth->login(returnTo: $targetPath, stay: true);
 
         $security = $auth->getSettings()->getSecurityData();
-        if (($security['rejectUnsolicitedResponsesWithInResponseTo'] ?? false) !== false && $session instanceof SessionInterface) {
+        if (
+            ($security['rejectUnsolicitedResponsesWithInResponseTo'] ?? false) !== false
+            && $session instanceof SessionInterface
+        ) {
             $session->set(SamlAuthenticator::LAST_REQUEST_ID, $auth->getLastRequestID());
         }
 
