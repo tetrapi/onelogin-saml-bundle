@@ -15,7 +15,6 @@
             "email": "alexander.menshchikov@yandex.ru"
         }
     ],
-    "target-dir": "tatrapi-sa/onelogin-saml-bundle",
     "require": {
         "php": "^8.2",
         "onelogin/php-saml": "dev-4.x-dev",
