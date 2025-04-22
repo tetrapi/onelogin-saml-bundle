@@ -181,7 +181,8 @@ class Configuration implements ConfigurationInterface
                                     ->booleanNode('wantNameIdEncrypted')->end()
                                     ->variableNode('requestedAuthnContext')
                                         ->validate()
-                                            // Condition is always 'false' because '!\is_bool($value)' is already 'false' at this point
+                                            // Condition is always 'false' because '!\is_bool($value)'
+                                            // is already 'false' at this point
                                             ->ifTrue(static fn ($value) => !\is_bool($value))
                                             ->thenInvalid('must be an array or a boolean.')
                                         ->end()
