@@ -1,0 +1,41 @@
+image: docker:latest
+services:
+  - docker:dind
+stages:
+  - lint
+  - test
+linting-psr12:
+  stage: lint
+  image: registry.gitlab.com/pipeline-components/php-codesniffer:latest
+  script:
+    - phpcs -s -p --colors --extensions=php --standard=PSR12 src/
+
+php-security-checker:
+  stage: test
+  image: registry.gitlab.com/pipeline-components/php-security-checker:latest
+  script:
+    - cd ${COMPOSER_LOCATION:-.} && security-checker security:check composer.lock
+
+
+test-rector:
+  image: "$CI_REGISTRY_IMAGE:develop"
+  allow_failure: false
+  before_script:
+  - cp .env.sample .env
+  - COMPOSER_CACHE_DIR=composer-cache composer install
+  script:
+  - vendor/bin/rector process src --dry-run
+  stage: test
+
+test-phpstan :
+  image : "$CI_REGISTRY_IMAGE:develop"
+  allow_failure : false
+  before_script:
+  - COMPOSER_CACHE_DIR=composer-cache composer install
+  script:
+  - php -d memory_limit=4G vendor/bin/phpstan analyse .
+  stage : test
+
+include :
+  - template : Security/Dependency-Scanning.gitlab-ci.yml
+  - template : Security/Secret-Detection.gitlab-ci.yml
