@@ -35,19 +35,32 @@ final class AuthFactory
     private static function replaceSchemeAndHostPlaceholder(array $settings, string $replace): array
     {
         if (isset($settings['baseurl'])) {
-            $settings['baseurl'] = str_replace(self::SCHEME_AND_HOST_PLACEHOLDER, $replace, (string) $settings['baseurl']);
+            $settings['baseurl'] =
+                str_replace(self::SCHEME_AND_HOST_PLACEHOLDER, $replace, (string)$settings['baseurl']);
         }
 
         if (isset($settings['sp']['entityId'])) {
-            $settings['sp']['entityId'] = str_replace(self::SCHEME_AND_HOST_PLACEHOLDER, $replace, (string) $settings['sp']['entityId']);
+            $settings['sp']['entityId'] = str_replace(
+                self::SCHEME_AND_HOST_PLACEHOLDER,
+                $replace,
+                (string)$settings['sp']['entityId']
+            );
         }
 
         if (isset($settings['sp']['assertionConsumerService']['url'])) {
-            $settings['sp']['assertionConsumerService']['url'] = str_replace(self::SCHEME_AND_HOST_PLACEHOLDER, $replace, (string) $settings['sp']['assertionConsumerService']['url']); // @phan-suppress-current-line PhanTypeArraySuspiciousNull, PhanTypeInvalidDimOffset
+            $settings['sp']['assertionConsumerService']['url'] = str_replace(
+                self::SCHEME_AND_HOST_PLACEHOLDER,
+                $replace,
+                (string)$settings['sp']['assertionConsumerService']['url']
+            ); // @phan-suppress-current-line PhanTypeArraySuspiciousNull, PhanTypeInvalidDimOffset
         }
 
         if (isset($settings['sp']['singleLogoutService']['url'])) {
-            $settings['sp']['singleLogoutService']['url'] = str_replace(self::SCHEME_AND_HOST_PLACEHOLDER, $replace, (string) $settings['sp']['singleLogoutService']['url']); // @phan-suppress-current-line PhanTypeArraySuspiciousNull, PhanTypeInvalidDimOffset
+            $settings['sp']['singleLogoutService']['url'] = str_replace(
+                self::SCHEME_AND_HOST_PLACEHOLDER,
+                $replace,
+                (string)$settings['sp']['singleLogoutService']['url']
+            ); // @phan-suppress-current-line PhanTypeArraySuspiciousNull, PhanTypeInvalidDimOffset
         }
 
         return $settings;

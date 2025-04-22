@@ -35,7 +35,9 @@ final readonly class AuthArgumentResolver implements ValueResolverInterface
         $idp = $this->idpResolver->resolve($request);
         if (($idp !== null && $idp !== '') && !$this->authRegistry->hasService($idp)) {
             throw new BadRequestHttpException(
-                'There is no OneLogin PHP toolkit settings for IdP "' . $idp . '". See nbgrp_onelogin_saml config ("onelogin_settings" section).'
+                'There is no OneLogin PHP toolkit settings for IdP "' .
+                $idp .
+                '". See nbgrp_onelogin_saml config ("onelogin_settings" section).'
             );
         }
 

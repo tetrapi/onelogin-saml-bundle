@@ -33,7 +33,9 @@ final class AuthRegistry implements AuthRegistryInterface
 
     public function getService(string $key): Auth
     {
-        return $this->services[$key] ?? throw new \OutOfBoundsException('Auth service for key "' . $key . '" does not exists.');
+        return $this->services[$key] ?? throw new \OutOfBoundsException(
+            'Auth service for key "' . $key . '" does not exists.'
+        );
     }
 
     public function getDefaultService(): Auth
