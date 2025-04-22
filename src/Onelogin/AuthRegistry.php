@@ -40,7 +40,7 @@ final class AuthRegistry implements AuthRegistryInterface
 
     public function getDefaultService(): Auth
     {
-        if (empty($this->services)) {
+        if ($this->services === []) {
             throw new \UnderflowException('There is no configured Auth services.');
         }
 

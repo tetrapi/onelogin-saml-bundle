@@ -34,7 +34,7 @@ final readonly class SamlLogoutListener
     public function processSingleLogout(LogoutEvent $event): void
     {
         $authService = $this->getAuthService($event->getRequest());
-        if ($authService === null) {
+        if (!$authService instanceof Auth) {
             return;
         }
 

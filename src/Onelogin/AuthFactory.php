@@ -7,23 +7,27 @@ declare(strict_types=1);
 namespace Nbgrp\OneloginSamlBundle\Onelogin;
 
 use OneLogin\Saml2\Auth;
+use OneLogin\Saml2\Error;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class AuthFactory
+final readonly class AuthFactory
 {
     public const SCHEME_AND_HOST_PLACEHOLDER = '<request_scheme_and_host>';
 
     public function __construct(
-        private readonly RequestStack $requestStack,
+        private RequestStack $requestStack,
     ) {
     }
 
+    /**
+     * @throws Error
+     */
     public function __invoke(array $settings): Auth
     {
         $request = $this->requestStack->getMainRequest();
         $settings = self::replaceSchemeAndHostPlaceholder(
             $settings,
-            $request?->getSchemeAndHttpHost() ?? 'http://localhost',
+            $request?->getSchemeAndHttpHost() ?? 'http://localhost'
         );
 
         return new Auth($settings);
@@ -32,7 +36,7 @@ final class AuthFactory
     /**
      * @psalm-suppress MixedArrayAssignment, MixedArrayAccess
      */
-    private static function replaceSchemeAndHostPlaceholder(array $settings, string $replace): array
+    private function replaceSchemeAndHostPlaceholder(array $settings, string $replace): array
     {
         if (isset($settings['baseurl'])) {
             $settings['baseurl'] =

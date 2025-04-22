@@ -7,12 +7,8 @@ use Rector\Exception\Configuration\InvalidConfigurationException;
 use Rector\Symfony\Set\SymfonySetList;
 
 try {
-    // Todo: After PHPStan update to 2.0 change this to use the new composer based configuration
     return RectorConfig::configure()
         ->withPaths([
-            __DIR__ . '/assets',
-            __DIR__ . '/config',
-            __DIR__ . '/public',
             __DIR__ . '/src',
             __DIR__ . '/tests',
         ])

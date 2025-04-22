@@ -9,6 +9,7 @@ namespace Nbgrp\OneloginSamlBundle\EventListener\User;
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Passport\Badge\DeferredEventBadge;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Security\Http\Event\CheckPassportEvent;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class DeferredUserListener
@@ -25,7 +26,7 @@ final class DeferredUserListener
         }
 
         $deferredEvent = $badge->getEvent();
-        if ($deferredEvent) {
+        if ($deferredEvent instanceof Event) {
             $eventDispatcher->dispatch($deferredEvent);
         }
     }
