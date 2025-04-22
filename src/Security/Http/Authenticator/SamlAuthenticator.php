@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -56,20 +57,21 @@ class SamlAuthenticator implements AuthenticatorInterface, AuthenticationEntryPo
         private readonly ?LoggerInterface $logger,
         private readonly string $idpParameterName,
         private readonly bool $useProxyVars,
-    ) {}
+    ) {
+    }
 
     public function supports(Request $request): ?bool
     {
         return $request->isMethod('POST')
-            && $this->httpUtils->checkRequestPath($request, (string) $this->options['check_path']);
+            && $this->httpUtils->checkRequestPath($request, (string)$this->options['check_path']);
     }
 
     public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
-        $uri = $this->httpUtils->generateUri($request, (string) $this->options['login_path']);
+        $uri = $this->httpUtils->generateUri($request, (string)$this->options['login_path']);
         $idp = $this->idpResolver->resolve($request);
         if ($idp !== null && $idp !== '') {
-            $uri .= '?'.$this->idpParameterName.'='.$idp;
+            $uri .= '?' . $this->idpParameterName . '=' . $idp;
         }
 
         return new RedirectResponse($uri);
@@ -193,9 +195,9 @@ class SamlAuthenticator implements AuthenticatorInterface, AuthenticationEntryPo
             return $oneLoginAuth->getNameId();
         }
 
-        $identifierAttribute = (string) $this->options['identifier_attribute'];
+        $identifierAttribute = (string)$this->options['identifier_attribute'];
         if (!\array_key_exists($identifierAttribute, $attributes)) {
-            throw new \RuntimeException('Attribute "'.$identifierAttribute.'" not found in SAML data.');
+            throw new \RuntimeException('Attribute "' . $identifierAttribute . '" not found in SAML data.');
         }
 
         $identifier = $attributes[$identifierAttribute];
@@ -205,7 +207,9 @@ class SamlAuthenticator implements AuthenticatorInterface, AuthenticationEntryPo
         }
 
         if (!\is_string($identifier)) {
-            throw new \RuntimeException('Attribute "'.$identifierAttribute.'" does not contain valid user identifier.');
+            throw new \RuntimeException(
+                'Attribute "' . $identifierAttribute . '" does not contain valid user identifier.'
+            );
         }
 
         return $identifier;

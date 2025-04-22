@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -14,7 +15,8 @@ final class AuthFactory
 
     public function __construct(
         private readonly RequestStack $requestStack,
-    ) {}
+    ) {
+    }
 
     public function __invoke(array $settings): Auth
     {

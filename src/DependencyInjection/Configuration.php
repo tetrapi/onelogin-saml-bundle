@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -51,7 +52,9 @@ class Configuration implements ConfigurationInterface
                                             ->end()
                                             ->scalarNode('binding')
                                                 ->validate()
+                                                    // phpcs:disable Generic.Files.LineLength.TooLong
                                                     ->ifTrue(static fn ($value): bool => !str_starts_with($value, 'urn:oasis:names:tc:SAML:2.0:bindings:'))
+                                                    // phpcs:enable
                                                     ->thenInvalid('invalid value.')
                                                 ->end()
                                             ->end()
@@ -63,7 +66,9 @@ class Configuration implements ConfigurationInterface
                                             ->scalarNode('responseUrl')->end()
                                             ->scalarNode('binding')
                                                 ->validate()
+                                                    // phpcs:disable Generic.Files.LineLength.TooLong
                                                     ->ifTrue(static fn ($value): bool => !str_starts_with($value, 'urn:oasis:names:tc:SAML:2.0:bindings:'))
+                                                    // phpcs:enable
                                                     ->thenInvalid('invalid value.')
                                                 ->end()
                                             ->end()
@@ -100,7 +105,9 @@ class Configuration implements ConfigurationInterface
                                             ->end()
                                             ->scalarNode('binding')
                                                 ->validate()
+                                                    // phpcs:disable Generic.Files.LineLength.TooLong
                                                     ->ifTrue(static fn ($value): bool => !str_starts_with($value, 'urn:oasis:names:tc:SAML:2.0:bindings:'))
+                                                    // phpcs:enable
                                                     ->thenInvalid('invalid value.')
                                                 ->end()
                                             ->end()
@@ -133,7 +140,9 @@ class Configuration implements ConfigurationInterface
                                             ->end()
                                             ->scalarNode('binding')
                                                 ->validate()
+                                                    // phpcs:disable Generic.Files.LineLength.TooLong
                                                     ->ifTrue(static fn ($value): bool => !str_starts_with($value, 'urn:oasis:names:tc:SAML:2.0:bindings:'))
+                                                    // phpcs:enable
                                                     ->thenInvalid('invalid value.')
                                                 ->end()
                                             ->end()
@@ -141,7 +150,9 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->scalarNode('NameIDFormat')
                                         ->validate()
+                                            // phpcs:disable Generic.Files.LineLength.TooLong
                                             ->ifTrue(static fn ($value): bool => !(str_starts_with($value, 'urn:oasis:names:tc:SAML:1.1:nameid-format:') || str_starts_with($value, 'urn:oasis:names:tc:SAML:2.0:nameid-format:')))
+                                            // phpcs:enable
                                             ->thenInvalid('invalid value.')
                                         ->end()
                                     ->end()
@@ -174,7 +185,9 @@ class Configuration implements ConfigurationInterface
                                             ->thenInvalid('must be an array or a boolean.')
                                         ->end()
                                         ->validate()
+                                            // phpcs:disable Generic.Files.LineLength.TooLong
                                             ->ifTrue(static fn ($value) => \is_array($value) && array_filter($value, static fn ($item): bool => !str_starts_with($item, 'urn:oasis:names:tc:SAML:2.0:ac:classes:')))
+                                            // phpcs:enable
                                             ->thenInvalid('invalid value.')
                                         ->end()
                                     ->end()

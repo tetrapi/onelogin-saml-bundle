@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -13,7 +14,8 @@ abstract class AbstractUserListener
     public function __construct(
         protected ?EntityManagerInterface $entityManager,
         protected bool $needPersist,
-    ) {}
+    ) {
+    }
 
     public function __invoke(AbstractUserEvent $event): void
     {

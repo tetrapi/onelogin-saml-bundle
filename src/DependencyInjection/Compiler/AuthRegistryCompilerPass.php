@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Initialize AuthRegistry with Auth services according OneLogin settings.
+ * Initialize AuthRegistry with Auth services according to OneLogin settings.
  */
 class AuthRegistryCompilerPass implements CompilerPassInterface
 {

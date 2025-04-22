@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -10,20 +11,25 @@ use Nbgrp\OneloginSamlBundle\Onelogin\AuthRegistryInterface;
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\SamlAuthenticator;
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use OneLogin\Saml2\Auth;
+use OneLogin\Saml2\Error;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**
- * Process Single Logout by current OneLogin Auth service on user logout.
+ * Process Single Logout by the current OneLogin Auth service on user logout.
  */
 final readonly class SamlLogoutListener
 {
     public function __construct(
         private AuthRegistryInterface $authRegistry,
         private IdpResolverInterface $idpResolver,
-    ) {}
+    ) {
+    }
 
+    /**
+     * @throws Error
+     */
     #[AsEventListener(LogoutEvent::class)]
     public function processSingleLogout(LogoutEvent $event): void
     {
@@ -39,7 +45,7 @@ final readonly class SamlLogoutListener
 
         try {
             $authService->processSLO();
-        } catch (\OneLogin\Saml2\Error) {
+        } catch (Error) {
             $sloUrl = $authService->getSLOurl();
             if ($sloUrl === null || $sloUrl === '') {
                 return;
