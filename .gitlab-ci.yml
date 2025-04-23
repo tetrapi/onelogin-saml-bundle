@@ -22,19 +22,20 @@ test-rector:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
-  - cp .env.sample .env
-  - COMPOSER_CACHE_DIR=composer-cache composer install
+    - cp .env.sample .env
+    - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
-  - vendor/bin/rector process src --dry-run
+    - vendor/bin/rector process src --dry-run
   stage: test
 
 test-phpstan :
   image : "$CI_REGISTRY_IMAGE:develop"
   allow_failure : false
   before_script:
-  - COMPOSER_CACHE_DIR=composer-cache composer install
+    - cp .env.sample .env
+    - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
-  - php -d memory_limit=4G vendor/bin/phpstan analyse .
+    - php -d memory_limit=4G vendor/bin/phpstan analyse .
   stage : test
 
 build_image:
