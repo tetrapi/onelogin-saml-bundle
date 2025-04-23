@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -12,7 +13,8 @@ abstract class AbstractUserEvent extends Event
 {
     public function __construct(
         private readonly UserInterface $user,
-    ) {}
+    ) {
+    }
 
     public function getUser(): UserInterface
     {

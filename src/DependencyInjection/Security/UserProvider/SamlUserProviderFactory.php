@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -19,8 +20,7 @@ class SamlUserProviderFactory implements UserProviderFactoryInterface
         $container
             ->setDefinition($id, new ChildDefinition(SamlUserProvider::class))
             ->addArgument($config['user_class'])
-            ->addArgument($config['default_roles'])
-        ;
+            ->addArgument($config['default_roles']);
     }
 
     public function getKey(): string
@@ -42,7 +42,9 @@ class SamlUserProviderFactory implements UserProviderFactoryInterface
                     ->cannotBeEmpty()
                     ->validate()
                         ->ifTrue(static fn ($value) => !is_a($value, UserInterface::class, true))
-                        ->thenInvalid('You should provide user class implementing '.UserInterface::class.' interface.')
+                        ->thenInvalid(
+                            'You should provide user class implementing ' . UserInterface::class . ' interface.'
+                        )
                     ->end()
                 ->end()
                 ->arrayNode('default_roles')

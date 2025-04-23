@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -7,6 +8,7 @@ namespace Nbgrp\OneloginSamlBundle\Controller;
 
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\SamlAuthenticator;
 use OneLogin\Saml2\Auth;
+use OneLogin\Saml2\Error;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +22,8 @@ readonly class Login
 {
     public function __construct(
         private FirewallMap $firewallMap,
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request, Auth $auth): RedirectResponse
     {
@@ -56,15 +59,21 @@ readonly class Login
         }
 
         /** @phpstan-ignore-next-line */
-        return $session->get('_security.'.$firewallName.'.target_path');
+        return $session->get('_security.' . $firewallName . '.target_path');
     }
 
+    /**
+     * @throws Error
+     */
     private function processLoginAndGetRedirectUrl(Auth $auth, ?string $targetPath, ?SessionInterface $session): string
     {
         $redirectUrl = $auth->login(returnTo: $targetPath, stay: true);
 
         $security = $auth->getSettings()->getSecurityData();
-        if (($security['rejectUnsolicitedResponsesWithInResponseTo'] ?? false) !== false && $session instanceof SessionInterface) {
+        if (
+            ($security['rejectUnsolicitedResponsesWithInResponseTo'] ?? false) !== false
+            && $session instanceof SessionInterface
+        ) {
             $session->set(SamlAuthenticator::LAST_REQUEST_ID, $auth->getLastRequestID());
         }
 

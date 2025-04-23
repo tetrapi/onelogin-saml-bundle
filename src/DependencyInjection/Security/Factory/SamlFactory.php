@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -40,19 +41,28 @@ class SamlFactory extends AbstractFactory
         return 'saml';
     }
 
-    public function createAuthenticator(ContainerBuilder $container, string $firewallName, array $config, string $userProviderId): string
-    {
-        $authenticatorId = 'security.authenticator.saml.'.$firewallName;
+    public function createAuthenticator(
+        ContainerBuilder $container,
+        string $firewallName,
+        array $config,
+        string $userProviderId
+    ): string {
+        $authenticatorId = 'security.authenticator.saml.' . $firewallName;
         $authenticator = (new ChildDefinition(SamlAuthenticator::class))
             ->replaceArgument(1, new Reference($userProviderId))
-            ->replaceArgument(4, new Reference($this->createAuthenticationSuccessHandler($container, $firewallName, $config)))
-            ->replaceArgument(5, new Reference($this->createAuthenticationFailureHandler($container, $firewallName, $config)))
-            ->replaceArgument(6, array_intersect_key($config, $this->options))
-        ;
+            ->replaceArgument(
+                4,
+                new Reference($this->createAuthenticationSuccessHandler($container, $firewallName, $config))
+            )
+            ->replaceArgument(
+                5,
+                new Reference($this->createAuthenticationFailureHandler($container, $firewallName, $config))
+            )
+            ->replaceArgument(6, array_intersect_key($config, $this->options));
 
         if (!empty($config['user_factory'])) {
             /** @phpstan-ignore-next-line */
-            $authenticator->replaceArgument(7, new Reference((string) $config['user_factory']));
+            $authenticator->replaceArgument(7, new Reference((string)$config['user_factory']));
         }
 
         $container->setDefinition($authenticatorId, $authenticator);
@@ -64,22 +74,26 @@ class SamlFactory extends AbstractFactory
 
     protected function createUserListeners(ContainerBuilder $container, string $firewallName, array $config): void
     {
-        $container->setDefinition('nbgrp_onelogin_saml.user_created_listener.'.$firewallName, new ChildDefinition(UserCreatedListener::class))
+        $container->setDefinition(
+            'nbgrp_onelogin_saml.user_created_listener.' . $firewallName,
+            new ChildDefinition(UserCreatedListener::class)
+        )
             ->replaceArgument(1, $config['persist_user'] ?? false)
             ->addTag('nbgrp.saml_user_listener')
             ->addTag('kernel.event_listener', [
                 'event' => UserCreatedEvent::class,
-                'dispatcher' => 'security.event_dispatcher.'.$firewallName,
-            ])
-        ;
+                'dispatcher' => 'security.event_dispatcher.' . $firewallName,
+            ]);
 
-        $container->setDefinition('nbgrp_onelogin_saml.user_modified_listener.'.$firewallName, new ChildDefinition(UserModifiedListener::class))
+        $container->setDefinition(
+            'nbgrp_onelogin_saml.user_modified_listener.' . $firewallName,
+            new ChildDefinition(UserModifiedListener::class)
+        )
             ->replaceArgument(1, $config['persist_user'] ?? false)
             ->addTag('nbgrp.saml_user_listener')
             ->addTag('kernel.event_listener', [
                 'event' => UserModifiedEvent::class,
-                'dispatcher' => 'security.event_dispatcher.'.$firewallName,
-            ])
-        ;
+                'dispatcher' => 'security.event_dispatcher.' . $firewallName,
+            ]);
     }
 }
