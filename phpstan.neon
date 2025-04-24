@@ -4,5 +4,8 @@ parameters:
     - src
     - tests
 
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
+  excludePaths:
+    # Exclude Rector's internal "vendor" folder
+    - vendor/rector/rector/vendor/*
+    # Exclude other deeply nested vendor paths if needed
+    - vendor/*/*/vendor/*
