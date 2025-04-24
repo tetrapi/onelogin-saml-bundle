@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "onelogin/php-saml": "dev-4.x-dev",
+        "onelogin/php-saml": "dev-4.x-dev#76236a6907f8dacfe34c41ed85a9cb9fbc654059",
         "rector/rector": "^2.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpdoc-parser": "^2.0",
