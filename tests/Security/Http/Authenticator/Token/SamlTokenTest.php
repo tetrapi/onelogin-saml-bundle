@@ -17,6 +17,9 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(SamlToken::class)]
 final class SamlTokenTest extends TestCase
 {
+    /**
+     * @return iterable<string, array{attributes: array<string, mixed>}>
+     */
     public static function provideTokenCases(): iterable
     {
         yield 'Empty attributes' => [
@@ -31,6 +34,9 @@ final class SamlTokenTest extends TestCase
         ];
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     #[DataProvider('provideTokenCases')]
     public function testToken(array $attributes): void
     {
