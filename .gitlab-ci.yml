@@ -21,8 +21,8 @@ test-rector:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
-    - if [ -z "$GH_TOKEN" ]; then echo "GH_TOKEN is not set"; exit 1; fi
-    - echo "GH_TOKEN is set"
+    - composer config -g github-oauth.github.com $GH_TOKEN
+    - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - vendor/bin/rector process src --dry-run
   stage: test
@@ -31,8 +31,8 @@ test-phpstan:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
-    - if [ -z "$GH_TOKEN" ]; then echo "GH_TOKEN is not set"; exit 1; fi
-    - echo "GH_TOKEN is set"
+    - composer config -g github-oauth.github.com $GH_TOKEN
+    - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - php -d memory_limit=4G vendor/bin/phpstan analyse .
   stage: test
