@@ -21,7 +21,6 @@ test-rector:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
-    - composer config -g github-oauth.github.com $GH_TOKEN
     - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - vendor/bin/rector process src --dry-run
@@ -31,7 +30,6 @@ test-phpstan:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
-    - composer config -g github-oauth.github.com $GH_TOKEN
     - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - php -d memory_limit=4G vendor/bin/phpstan analyse .
