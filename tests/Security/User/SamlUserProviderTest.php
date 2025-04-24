@@ -69,7 +69,6 @@ final class SamlUserProviderTest extends TestCase
         $this->expectExceptionMessage('The $userClass argument should be a class implementing the Symfony\Component\Security\Core\User\UserInterface interface.');
         /**
          * @psalm-suppress InvalidArgument
-         * @phpstan-ignore-next-line
          */
         new SamlUserProvider(\stdClass::class, ['ROLE_ANY']);
     }
