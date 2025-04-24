@@ -2,7 +2,6 @@ parameters:
   level: 3
   paths:
     - src
-    - tests
 
   excludePaths:
     # Exclude Rector's internal "vendor" folder
