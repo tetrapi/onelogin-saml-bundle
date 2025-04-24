@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * Just instantiates user objects with providing identifier and default roles.
  *
- * @template-covariant TUser of UserInterface
+ * @template TUser of UserInterface
  *
  * @template-implements UserProviderInterface<TUser>
  */

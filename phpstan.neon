@@ -6,6 +6,7 @@ parameters:
   excludePaths:
     - vendor/*
     - var/*
+    - '!vendor/onelogin/php-saml/**' # Allow PHPStan to analyze onelogin/php-saml
 
   bootstrapFiles:
       - vendor/autoload.php
