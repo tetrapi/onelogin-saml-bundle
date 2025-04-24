@@ -1,12 +1,14 @@
 parameters:
   level: 3
-  paths:
-    - src
 
+  reportUnmatchedIgnoredErrors: false
   excludePaths:
     - vendor/*
     - var/*
     - '!vendor/onelogin/php-saml/**' # Allow PHPStan to analyze onelogin/php-saml
+
+  scanDirectories:
+    - vendor/onelogin/php-saml/src # Explicitly include onelogin/php-saml for analysis
 
   bootstrapFiles:
       - vendor/autoload.php
