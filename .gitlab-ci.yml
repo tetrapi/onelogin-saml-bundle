@@ -17,24 +17,25 @@ php-security-checker:
   script:
     - cd ${COMPOSER_LOCATION:-.} && security-checker security:check composer.lock
 
-
 test-rector:
   image: "$CI_REGISTRY_IMAGE:develop"
   allow_failure: false
   before_script:
+    - composer config -g github-oauth.github.com $GH_TOKEN
     - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - vendor/bin/rector process src --dry-run
   stage: test
 
-test-phpstan :
-  image : "$CI_REGISTRY_IMAGE:develop"
-  allow_failure : false
+test-phpstan:
+  image: "$CI_REGISTRY_IMAGE:develop"
+  allow_failure: false
   before_script:
+    - composer config -g github-oauth.github.com $GH_TOKEN
     - COMPOSER_CACHE_DIR=composer-cache composer install
   script:
     - php -d memory_limit=4G vendor/bin/phpstan analyse .
-  stage : test
+  stage: test
 
 build_image:
   stage: build
@@ -44,6 +45,6 @@ build_image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
-include :
-  - template : Security/Dependency-Scanning.gitlab-ci.yml
-  - template : Security/Secret-Detection.gitlab-ci.yml
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
