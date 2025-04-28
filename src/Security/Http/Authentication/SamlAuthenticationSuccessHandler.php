@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -9,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 
 /**
- * Returns value of RelayState request parameter (GET or POST) as target url
+ * Returns the value of RelayState request parameter (GET or POST) as the target url
  * (if it does not equal to the login path).
  */
 class SamlAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
@@ -19,13 +20,13 @@ class SamlAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandl
     protected function determineTargetUrl(Request $request): string
     {
         if ($this->options['always_use_default_target_path']) {
-            return (string) $this->options['default_target_path'];
+            return (string)$this->options['default_target_path'];
         }
 
         $relayState = $request->query->get(self::RELAY_STATE, $request->request->get(self::RELAY_STATE));
         if ($relayState !== null) {
-            $relayState = (string) $relayState;
-            if ($relayState !== $this->httpUtils->generateUri($request, (string) $this->options['login_path'])) {
+            $relayState = (string)$relayState;
+            if ($relayState !== $this->httpUtils->generateUri($request, (string)$this->options['login_path'])) {
                 return $relayState;
             }
         }

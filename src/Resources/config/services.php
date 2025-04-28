@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -21,8 +22,8 @@ return static function (ContainerConfigurator $container): void {
         ->defaults()
             ->autoconfigure()
 
-        ->load('Nbgrp\\OneloginSamlBundle\\', $src.'/*')
-            ->exclude($src.'/{DependencyInjection,Event,Resources}')
+        ->load('Nbgrp\\OneloginSamlBundle\\', $src . '/*')
+            ->exclude($src . '/{DependencyInjection,Event,Resources}')
 
         ->set(Controller\Login::class)
             ->args([

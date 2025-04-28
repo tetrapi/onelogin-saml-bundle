@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -11,12 +12,13 @@ final readonly class SamlUserFactory implements SamlUserFactoryInterface
 {
     /**
      * @param class-string<UserInterface> $userClass
-     * @param array<string, mixed>        $mapping
+     * @param array<string, mixed> $mapping
      */
     public function __construct(
         private string $userClass,
         private array $mapping,
-    ) {}
+    ) {
+    }
 
     public function createUser(string $identifier, array $attributes): UserInterface
     {
@@ -43,10 +45,10 @@ final readonly class SamlUserFactory implements SamlUserFactoryInterface
         $attribute = $isArrayValue ? substr($attribute, 0, -2) : $attribute;
 
         if (!\array_key_exists($attribute, $attributes)) {
-            throw new \RuntimeException('Attribute "'.$attribute.'" not found in SAML data.');
+            throw new \RuntimeException('Attribute "' . $attribute . '" not found in SAML data.');
         }
 
-        $attributeValue = (array) $attributes[$attribute];
+        $attributeValue = (array)$attributes[$attribute];
         if (!$isArrayValue) {
             /** @psalm-suppress MixedAssignment */
             $attributeValue = reset($attributeValue);

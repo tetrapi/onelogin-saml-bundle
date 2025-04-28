@@ -17,7 +17,12 @@
     ],
     "require": {
         "php": "^8.2",
-        "onelogin/php-saml": "^4",
+        "onelogin/php-saml": "4.x-dev",
+        "rector/rector": "^2.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpdoc-parser": "^2.0",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-symfony": "^2.0",
         "psr/log": "^1 || ^2 || ^3",
         "symfony/config": "^7",
         "symfony/dependency-injection": "^7",
@@ -37,7 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Nbgrp\\OneloginSamlBundle\\": "src/"
+            "Nbgrp\\OneloginSamlBundle\\": "src/",
+            "OneLogin\\Saml2\\": "vendor/onelogin/php-saml/src/Saml2/"
         }
     },
     "autoload-dev": {
@@ -45,9 +51,24 @@
             "Nbgrp\\Tests\\OneloginSamlBundle\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "onelogin/php-saml",
+                "version": "4.x-dev",
+                "dist": {
+                    "url": "https://github.com/onelogin/php-saml/archive/76236a6907f8dacfe34c41ed85a9cb9fbc654059.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
     "config": {
+        "preferred-install": "dist",
         "allow-plugins": {
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {

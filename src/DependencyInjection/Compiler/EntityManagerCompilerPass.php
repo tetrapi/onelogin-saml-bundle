@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -25,7 +26,7 @@ class EntityManagerCompilerPass implements CompilerPassInterface
             throw new \UnexpectedValueException('Entity manager name should be a string value.');
         }
 
-        $emDefinition = 'doctrine.orm.'.$entityManagerName.'_entity_manager';
+        $emDefinition = 'doctrine.orm.' . $entityManagerName . '_entity_manager';
         if (!$container->hasDefinition($emDefinition)) {
             return;
         }

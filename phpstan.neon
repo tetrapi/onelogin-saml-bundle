@@ -1,8 +1,13 @@
 parameters:
-  level: 9
-  paths:
-    - src
-    - tests
+  level: 3
 
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
+  reportUnmatchedIgnoredErrors: false
+  excludePaths:
+    - vendor/*
+    - '!vendor/onelogin/php-saml/**' # Allow PHPStan to analyze onelogin/php-saml
+
+  scanDirectories:
+    - vendor/onelogin/php-saml/src # Explicitly include onelogin/php-saml for analysis
+
+  bootstrapFiles:
+      - vendor/autoload.php

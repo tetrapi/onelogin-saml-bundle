@@ -1,4 +1,5 @@
 <?php
+
 // SPDX-License-Identifier: BSD-3-Clause
 
 declare(strict_types=1);
@@ -10,9 +11,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
- * Just instantiates user object with providing identifier and default roles.
+ * Just instantiates user objects with providing identifier and default roles.
  *
- * @template-covariant TUser of UserInterface
+ * @template TUser of UserInterface
  *
  * @template-implements UserProviderInterface<TUser>
  */
@@ -26,7 +27,11 @@ class SamlUserProvider implements UserProviderInterface
         protected array $defaultRoles,
     ) {
         if (!is_a($userClass, UserInterface::class, true)) {
-            throw new \InvalidArgumentException('The $userClass argument should be a class implementing the '.UserInterface::class.' interface.');
+            throw new \InvalidArgumentException(
+                'The $userClass argument should be a class implementing the ' .
+                UserInterface::class .
+                ' interface.'
+            );
         }
     }
 
