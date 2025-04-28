@@ -9,7 +9,7 @@ namespace Nbgrp\OneloginSamlBundle\Onelogin;
 use OneLogin\Saml2\Auth;
 
 /**
- * Represents the interface of registry that holds OneLogin Auth services per IdP.
+ * Represents the interface of the registry that holds OneLogin Auth services per IdP.
  */
 interface AuthRegistryInterface
 {

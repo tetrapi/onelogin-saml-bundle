@@ -4,7 +4,6 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   excludePaths:
     - vendor/*
-    - var/*
     - '!vendor/onelogin/php-saml/**' # Allow PHPStan to analyze onelogin/php-saml
 
   scanDirectories:

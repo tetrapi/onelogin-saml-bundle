@@ -42,7 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Nbgrp\\OneloginSamlBundle\\": "src/"
+            "Nbgrp\\OneloginSamlBundle\\": "src/",
+            "OneLogin\\Saml2\\": "vendor/onelogin/php-saml/src/Saml2/"
         }
     },
     "autoload-dev": {
